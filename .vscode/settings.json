@@ -1,0 +1,6 @@
+{
+    "docker.dockerPath": "/snap/bin/docker",
+    "terminal.integrated.env.linux": {
+        "PATH": "/snap/bin:${env:PATH}"
+    }
+}
