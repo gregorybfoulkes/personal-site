@@ -1,6 +1,6 @@
 # personal-site
 
-My personal website, built with [Hexo](https://hexo.io/) 8 and the [Landscape](https://github.com/hexojs/hexo-theme-landscape) theme.
+My personal blog, built with [Hexo](https://hexo.io/) 8 and a small local theme.
 
 ## Requirements
 
@@ -27,6 +27,10 @@ docker compose up --build
 
 For the debug configuration, run `docker compose -f compose.debug.yaml up --build`.
 
+## VS Code Dev Container
+
+Reopen the repository in a Dev Container to use Node.js LTS. Dependencies are installed with `npm ci`, and port `3000` is forwarded for `npm start`.
+
 ## Scripts
 
 | Command          | What it does                                  |
@@ -48,16 +52,25 @@ npx hexo new post "My post title"
 Drafts and pages work the same way with `npx hexo new draft "..."` and `npx hexo new page "..."`.
 Publish a draft with `npx hexo publish "My post title"`.
 
+Posts support `title`, `date`, `categories`, and `tags` in their YAML front matter. Add post-specific images or other files to the folder Hexo creates beside the post; reference Markdown images by their filename.
+
+The About page is at `source/about/index.md`. Its title and layout are ready; add your own content below the front matter.
+
+## Pages
+
+The theme provides a recent-post homepage, individual post pages, archives by year and month, category and tag listings, and a tag index. Lists are paginated using the settings in `_config.yml`.
+
 ## Project layout
 
 ```
 .
 ├── _config.yml            # Site configuration
-├── _config.landscape.yml  # Theme configuration overrides
 ├── scaffolds/             # Templates for new posts, pages and drafts
 ├── source/
-│   └── _posts/            # Blog posts (Markdown)
-└── themes/                # Local themes (Landscape is installed from npm)
+│   ├── _posts/            # Blog posts (Markdown)
+│   └── about/             # About page
+└── themes/
+    └── blank/             # Site layouts and stylesheet
 ```
 
 `public/`, `db.json` and `node_modules/` are generated and ignored by git.

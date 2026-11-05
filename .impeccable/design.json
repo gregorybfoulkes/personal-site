@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 2,
+  "title": "Design System: Personal Site",
+  "extensions": {
+    "shadows": [],
+    "motion": [
+      {
+        "name": "tile-state",
+        "value": "180ms ease-out",
+        "purpose": "Navigation tile color and scale states."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "34rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Geometric Navigation",
+      "kind": "nav",
+      "refersTo": "navigation-tile",
+      "description": "Four overlapping square links identify the main blog destinations.",
+      "html": "<nav aria-label=\"Primary navigation\"><ul class=\"ds-nav\"><li><a class=\"ds-tile ds-home\" href=\"/\" aria-current=\"page\">Home</a></li><li><a class=\"ds-tile ds-about\" href=\"/about/\">About</a></li><li><a class=\"ds-tile ds-archive\" href=\"/archives/\">Archive</a></li><li><a class=\"ds-tile ds-tags\" href=\"/tags/\">Tags</a></li></ul></nav>",
+      "css": ".ds-nav { display: grid; grid-template-columns: repeat(2, 3.75rem); grid-template-rows: repeat(2, 3.75rem); margin: 0; padding: 0; list-style: none; } .ds-nav li { position: relative; width: 3.75rem; height: 3.75rem; } .ds-tile { position: relative; z-index: 1; display: grid; width: 3.75rem; height: 3.75rem; place-items: center; color: var(--color-ink, #292a27); font: 600 0.82rem/1.2 system-ui, sans-serif; letter-spacing: -0.02em; text-decoration: none; } .ds-tile::before { position: absolute; z-index: -1; inset: -0.45rem; content: ''; background: var(--tile-color); transition: background-color 180ms ease-out, transform 180ms ease-out; pointer-events: none; } .ds-home { --tile-color: var(--color-square-home, #e5e3dd); } .ds-about { --tile-color: var(--color-square-about, #d7d6d0); } .ds-archive { --tile-color: var(--color-square-archive, #ecebe6); } .ds-tags { --tile-color: var(--color-square-tags, #cccac3); } .ds-tile:hover, .ds-tile:focus-visible, .ds-tile[aria-current='page'] { z-index: 2; } .ds-tile:hover::before, .ds-tile:focus-visible::before, .ds-tile[aria-current='page']::before { background: #c7c5bd; transform: scale(1.04); } .ds-tile:focus-visible { outline: 2px solid #292a27; outline-offset: -2px; } @media (max-width: 34rem) { .ds-nav { grid-template-columns: repeat(2, 3.25rem); grid-template-rows: repeat(2, 3.25rem); } .ds-nav li, .ds-tile { width: 3.25rem; height: 3.25rem; } .ds-tile::before { inset: -0.35rem; } } @media (prefers-reduced-motion: reduce) { .ds-tile::before { transition-duration: 0.01ms; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Geometry of a Reading Desk",
+    "overview": "The site is a calm, content-first place to publish and read personal writing. Warm paper tones and a restrained system-font stack keep the interface familiar; the navigation supplies the one distinctive gesture, a compact arrangement of four overlapping squares.\n\nThe visual system stays deliberately light and flat. Color distinguishes the four navigation destinations, while editorial hierarchy and whitespace organize posts and pages without competing with their content.",
+    "keyCharacteristics": [
+      "Warm off-white canvas and paper surfaces with charcoal text.",
+      "Four overlapping, muted-gray square navigation tiles.",
+      "System typography, generous reading width, and thin dividers.",
+      "Flat surfaces; state is communicated through tone, focus, and small transitions."
+    ],
+    "rules": [
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Surfaces stay flat; use tonal contrast and borders for depth, never shadows.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the four square navigation destinations distinct by their established gray tones.",
+      "Do preserve the warm paper/canvas contrast and dark readable text.",
+      "Do keep article copy within the established 72ch measure.",
+      "Do retain visible keyboard focus, active-page semantics, and reduced-motion behavior."
+    ],
+    "donts": [
+      "Don't add gradients, shadows, bright accent colors, or rounded card layouts that compete with the flat geometric language.",
+      "Don't make the square overlap block neighboring link hit targets.",
+      "Don't add biography or other personal facts that the author has not supplied."
+    ]
+  }
+}

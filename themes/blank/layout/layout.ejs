@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="<%= config.language || 'en' %>">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%
+      let documentTitle = page.title;
+      if (!documentTitle && page.category) documentTitle = `Category: ${page.category}`;
+      if (!documentTitle && page.tag) documentTitle = `Tag: ${page.tag}`;
+      if (!documentTitle && page.year && page.month) documentTitle = `Archive: ${page.year} / ${String(page.month).padStart(2, '0')}`;
+      else if (!documentTitle && page.year) documentTitle = `Archive: ${page.year}`;
+      if (!documentTitle && page.archive) documentTitle = 'Archive';
+      if (!documentTitle && page.tags) documentTitle = 'Tags';
+      if (!documentTitle && page.__index) documentTitle = 'Home';
+      const pageTitle = documentTitle ? `${documentTitle} | ${config.title}` : config.title;
+      const pageDescription = page.description || (page.excerpt ? strip_html(page.excerpt) : config.description);
+      const canonicalPath = page.path.replace(/index\.html$/, '');
+      const canonicalUrl = new URL(url_for(canonicalPath), config.url).href;
+      const currentHome = Boolean(page.__index);
+      const currentAbout = page.path === 'about/index.html';
+      const currentArchive = Boolean(page.archive || page.category);
+      const currentTags = Boolean(page.tag || page.tags);
+    %>
+    <title><%= pageTitle %></title>
+    <% if (pageDescription) { %>
+      <meta name="description" content="<%= pageDescription %>">
+    <% } %>
+    <link rel="canonical" href="<%= canonicalUrl %>">
+    <link rel="stylesheet" href="<%- url_for('css/site.css') %>">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="site-title" href="<%- url_for('/') %>"><%= config.title %></a>
+        <nav aria-label="Primary navigation">
+          <ul class="site-nav">
+            <li>
+              <a class="nav-tile nav-tile-home" href="<%- url_for('/') %>"<% if (currentHome) { %> aria-current="page"<% } %>>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-tile nav-tile-about" href="<%- url_for('/about/') %>"<% if (currentAbout) { %> aria-current="page"<% } %>>
+                <span>About</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-tile nav-tile-archive" href="<%- url_for('/archives/') %>"<% if (currentArchive) { %> aria-current="page"<% } %>>
+                <span>Archive</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-tile nav-tile-tags" href="<%- url_for('/tags/') %>"<% if (currentTags) { %> aria-current="page"<% } %>>
+                <span>Tags</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main id="main" class="site-main">
+        <%- body %>
+      </main>
+      <footer class="site-footer">
+        <p>&copy; <%= date(Date.now(), 'YYYY') %> <%= config.author %></p>
+      </footer>
+    </div>
+  </body>
+</html>

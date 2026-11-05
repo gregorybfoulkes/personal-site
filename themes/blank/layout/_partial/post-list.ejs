@@ -1,0 +1,14 @@
+<ul class="post-list">
+  <% posts.forEach((post) => { %>
+    <li class="post-list-item">
+      <article>
+        <h2><a href="<%- url_for(post.path) %>"><%= post.title %></a></h2>
+        <p class="entry-meta"><time datetime="<%= date_xml(post.date) %>"><%= date(post.date, config.date_format) %></time></p>
+        <% const summary = post.excerpt || truncate(strip_html(post.content), 180); %>
+        <% if (summary) { %>
+          <div class="post-summary"><%- summary %></div>
+        <% } %>
+      </article>
+    </li>
+  <% }) %>
+</ul>

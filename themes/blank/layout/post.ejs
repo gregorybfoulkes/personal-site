@@ -1,0 +1,41 @@
+<article>
+  <header class="entry-header">
+    <h1><%= page.title %></h1>
+    <p class="entry-meta">
+      <time datetime="<%= date_xml(page.date) %>"><%= date(page.date, config.date_format) %></time>
+    </p>
+  </header>
+
+  <div class="entry-content">
+    <%- page.content %>
+  </div>
+
+  <% const categories = page.categories ? page.categories.toArray() : []; %>
+  <% const tags = page.tags ? page.tags.toArray() : []; %>
+  <% if (categories.length || tags.length) { %>
+    <footer class="entry-taxonomy">
+      <% if (categories.length) { %>
+        <p>Categories:
+          <% categories.forEach((category, index) => { %>
+            <% if (index) { %>, <% } %><a href="<%- url_for(category.path) %>"><%= category.name %></a>
+          <% }) %>
+        </p>
+      <% } %>
+      <% if (tags.length) { %>
+        <p>Tags:
+          <% tags.forEach((tag, index) => { %>
+            <% if (index) { %>, <% } %><a href="<%- url_for(tag.path) %>"><%= tag.name %></a>
+          <% }) %>
+        </p>
+      <% } %>
+    </footer>
+  <% } %>
+  <nav class="post-navigation" aria-label="Post navigation">
+    <% if (page.prev) { %>
+      <a rel="prev" href="<%- url_for(page.prev.path) %>">Previous: <%= page.prev.title %></a>
+    <% } %>
+    <% if (page.next) { %>
+      <a rel="next" href="<%- url_for(page.next.path) %>">Next: <%= page.next.title %></a>
+    <% } %>
+  </nav>
+</article>

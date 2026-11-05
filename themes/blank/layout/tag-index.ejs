@@ -1,0 +1,15 @@
+<%
+  const tags = page.tags ? page.tags.toArray() : [];
+%>
+<section aria-labelledby="page-title">
+  <h1 id="page-title">Tags</h1>
+  <% if (tags.length) { %>
+    <ul class="tag-list">
+      <% tags.forEach((tag) => { %>
+        <li><a href="<%- url_for(tag.path) %>"><%= tag.name %></a><span><%= tag.length %> <%= tag.length === 1 ? 'post' : 'posts' %></span></li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p class="empty-state">Tags will appear here when you add them to posts.</p>
+  <% } %>
+</section>

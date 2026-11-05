@@ -1,0 +1,22 @@
+<%
+  let heading = 'Archive';
+  if (page.year && page.month) {
+    heading = `${page.year} / ${String(page.month).padStart(2, '0')}`;
+  } else if (page.year) {
+    heading = String(page.year);
+  } else if (page.category) {
+    heading = `Category: ${page.category}`;
+  } else if (page.tag) {
+    heading = `Tag: ${page.tag}`;
+  }
+  const posts = page.posts ? page.posts.data : [];
+%>
+<section aria-labelledby="page-title">
+  <h1 id="page-title"><%= heading %></h1>
+  <% if (posts.length) { %>
+    <%- partial('_partial/post-list', { posts }) %>
+    <%- partial('_partial/pagination') %>
+  <% } else { %>
+    <p class="empty-state">There are no posts here yet.</p>
+  <% } %>
+</section>
