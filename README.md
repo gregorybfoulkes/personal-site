@@ -17,11 +17,22 @@ npm run server
 
 The dev server runs at <http://localhost:4000> and reloads as files change.
 
+## Running with Docker
+
+Start the site at <http://localhost:3000> with:
+
+```bash
+docker compose up --build
+```
+
+For the debug configuration, run `docker compose -f compose.debug.yaml up --build`.
+
 ## Scripts
 
 | Command          | What it does                                  |
 | ---------------- | --------------------------------------------- |
 | `npm run server` | Start the local dev server                    |
+| `npm start`      | Start the site on port `3000`                  |
 | `npm run build`  | Generate the static site into `public/`       |
 | `npm run clean`  | Remove `public/` and the Hexo cache (`db.json`) |
 | `npm run deploy` | Deploy using the `deploy` settings in `_config.yml` |
